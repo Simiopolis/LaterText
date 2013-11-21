@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <!-- Recipient Row -->
+    <TableRow 
+        android:id="@+id/tableRow_1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        
+        <EditText 
+            android:id="@+id/recipient"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:hint="@string/recipient_hint"
+            android:layout_weight=".8"
+            android:layout_marginLeft="10dp"/>
+        
+        <Button 
+            android:id="@+id/contacts"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Cnt"
+            android:layout_marginRight="10dp"/>
+                
+    </TableRow>
+    
+    <!-- Time Picker Message Row -->
+    <TableRow 
+        android:id="@+id/tableRow_2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/desire_time"
+            android:layout_marginLeft="14dp"/>
+                
+    </TableRow>
+    
+    <!-- Time Picker Row -->
+    <TableRow 
+        android:id="@+id/tableRow_3"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+        
+        <TimePicker
+	        android:id="@+id/time"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center" />
+        
+    </TableRow>
+    
+    <!-- Message Row -->
+    <TableRow 
+        android:id="@+id/tableRow_4"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+        
+        <EditText 
+            android:id="@+id/message"
+            android:hint="@string/message_hint"
+            android:ems="10"
+      		android:gravity="left|top"
+       		android:inputType="textMultiLine"
+       		android:layout_marginLeft="10dp" >
+ 
+       		<requestFocus />
+       </EditText>
+       
+        <Button 
+            android:id="@+id/submit"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="SbT"/>
+        
+    </TableRow>
+    
+</TableLayout>

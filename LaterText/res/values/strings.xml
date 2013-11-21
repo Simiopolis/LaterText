@@ -4,5 +4,8 @@
     <string name="app_name">LaterText</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="recipient_hint">Enter Recipient</string>
+    <string name="desire_time">Pick text delivery time</string>
+    <string name="message_hint">Enter message</string>
 
 </resources>
