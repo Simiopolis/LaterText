@@ -5,9 +5,13 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +35,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.send_text);
         
+        final int icon = R.drawable.ic_launcher;
+        
         recipient = (EditText)findViewById(R.id.recipient);
         message = (EditText)findViewById(R.id.message);
         time = (TimePicker)findViewById(R.id.time);
@@ -44,6 +50,8 @@ public class MainActivity extends Activity {
 				// new intent
 				Intent smsReceiverIntent = new Intent(getApplicationContext(),
 						SMSReceiver.class);
+				Intent notiIntent = new Intent(getApplicationContext(),
+						LaterNotification.class);
 
 				// send message to BroadCastReceiver
 				destination = recipient.getText().toString();
@@ -52,6 +60,9 @@ public class MainActivity extends Activity {
 
 				// set up alarm manager for time delay
 				AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+				// notification manager for notification bar
+				NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
 				// get times for differences
 				int desire_hour = time.getCurrentHour();
@@ -74,11 +85,16 @@ public class MainActivity extends Activity {
 							MainActivity.this, 0,
 							smsReceiverIntent,
 							PendingIntent.FLAG_UPDATE_CURRENT);
+					pendingIntent2 = PendingIntent.getActivity(MainActivity.this, 0, notiIntent, PendingIntent.FLAG_ONE_SHOT);
 
 					alarmManager.set(AlarmManager.RTC_WAKEUP,
 							desired_calendar.getTimeInMillis() - 10000,
 							serviceIntent);
-
+					String msg = "Number: " + destination + "\n" +
+							"Message: " + body;
+					//creating notification for LaterText
+					createNotification(pendingIntent2, msg);
+					
 					Toast.makeText(
 							getApplicationContext(),
 							"Start service with \n Number = " + destination
@@ -117,6 +133,17 @@ public class MainActivity extends Activity {
 		c.set(Calendar.HOUR_OF_DAY, hour);
 		c.set(Calendar.MINUTE, min);
 		return c;
+	}
+	
+	private void createNotification(PendingIntent pendingIntent, String msg) {
+		NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentTitle("LaterText Notification")
+                .setContentText(msg)
+                .setContentIntent(pendingIntent);
+		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		notificationManager.notify(Constants.NOTIFICATION_ID, mBuilder.build());
 	}
 
 }
