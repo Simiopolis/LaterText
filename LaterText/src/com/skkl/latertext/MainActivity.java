@@ -61,13 +61,7 @@ public class MainActivity extends Activity {
 				Date desired = desired_calendar.getTime();
 				Date now = calendar.getTime();
 
-				/*
-				 * check different cases 1) desire hour & min are greater than
-				 * current time 2) desire hour is greater but min is not 3)
-				 * desire min is greater but hour is not 4) both desire min and
-				 * hour are smaller
-				 */
-
+				// check if desire time is grater than now.
 				if (desired.after(now)) {
 					// passing case
 					Bundle b = new Bundle();
